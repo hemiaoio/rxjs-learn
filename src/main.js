@@ -24,5 +24,10 @@ const fruitsObserver = {
     }
 }
 console.log('-----before subscribe ------ ');
-fruitsObservable.subscribe(fruitsObserver);
+const fruitsSubscription = fruitsObservable.subscribe(fruitsObserver);
+
 console.log('-----after subscribe ------ ');
+
+setTimeout(function () {
+    fruitsSubscription.unsubscribe(); // didn't print '🍋'
+}, 1000);
