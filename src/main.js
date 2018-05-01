@@ -3,6 +3,7 @@
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/fromEvent';
 
 const fruitsObservable = Observable.from(['🍎', '🍊', '🍋']);
 fruitsObservable.subscribe({
@@ -10,3 +11,10 @@ fruitsObservable.subscribe({
         console.log(data);
     }
 });
+
+const clickObservable = Observable.fromEvent(document.getElementById('search'), 'keyup');
+clickObservable.subscribe({
+    next: data => {
+        console.log(data.key);
+    }
+})
