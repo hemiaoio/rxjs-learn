@@ -6,10 +6,10 @@ import { Observable } from 'rxjs/Observable'
 const fruitsObservable = Observable.create(function subscribe(observer) {
     observer.next('🍎');
     observer.next('🍊');
-    observer.next('🍋');
-    observer.error('😭 someone took my fruits!');
-    observer.complete();
-    observer.next('🍌'); // can't print
+    setTimeout(function () {
+        observer.next('🍋');
+        observer.complete();
+    }, 2000);
 })
 
 const fruitsObserver = {
@@ -23,5 +23,6 @@ const fruitsObserver = {
         console.log('complete')
     }
 }
-
+console.log('-----before subscribe ------ ');
 fruitsObservable.subscribe(fruitsObserver);
+console.log('-----after subscribe ------ ');
