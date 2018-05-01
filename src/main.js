@@ -5,7 +5,11 @@ import { Observable } from 'rxjs/Observable'
 
 const fruitsObservable = Observable.create(function subscribe(observer) {
     observer.next('🍎');
+    observer.next('🍊');
+    observer.next('🍋');
+    observer.error('😭 someone took my fruits!');
     observer.complete();
+    observer.next('🍌'); // can't print
 })
 
 const fruitsObserver = {
