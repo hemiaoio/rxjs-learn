@@ -3,9 +3,13 @@
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/pluck';
 
 const fruitsObservable = Observable.create(function subscribe(observer) {
     observer.next('🍎');
@@ -71,5 +75,21 @@ const searchObservable = Observable
 searchObservable.subscribe({
     next: data => {
         console.log(document.getElementById('search').value);
+    }
+});
+
+const fibonacci$ = Observable
+    .interval(400) // interval 400 ms generate a number like 0,1,2,3,4,5......n it is progressive;
+    .take(10) // 只取 前 10
+    .scan(function fibonacci(x) {
+        return [x[1], x[0] + x[1]];
+    }, [0, 1]) // 扫描第二个参数,并将第二个参数传入 fibonacci function,将返回的值作为第二次扫描的参数继续执行.
+    .pluck('0'); // 提取 数组当中的第 0 个元素
+// [0 , 1]
+//     [1 , 1]
+//         [1 , 2]
+fibonacci$.subscribe({
+    next: function observer(data) {
+        console.log(data);
     }
 });
